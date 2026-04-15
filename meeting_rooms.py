@@ -23,19 +23,19 @@ def min_meeting_rooms(meetings: list[tuple[int, int]]) -> int:
     return len(heap)
 
 
-def merge_busy_intervals(intervals: list[tuple[int, int]]) -> list[tuple[int, int]]:
-    """Merge overlapping [start, end) intervals into disjoint blocks."""
-    if not intervals:
-        return []
-    ordered = sorted(intervals, key=lambda x: x[0])
-    out: list[tuple[int, int]] = [ordered[0]]
-    for start, end in ordered[1:]:
-        ps, pe = out[-1]
-        if start < pe:
-            out[-1] = (ps, max(pe, end))
-        else:
-            out.append((start, end))
-    return out
+# def merge_busy_intervals(intervals: list[tuple[int, int]]) -> list[tuple[int, int]]:
+#     """Merge overlapping [start, end) intervals into disjoint blocks."""
+#     if not intervals:
+#         return []
+#     ordered = sorted(intervals, key=lambda x: x[0])
+#     out: list[tuple[int, int]] = [ordered[0]]
+#     for start, end in ordered[1:]:
+#         ps, pe = out[-1]
+#         if start < pe:
+#             out[-1] = (ps, max(pe, end))
+#         else:
+#             out.append((start, end))
+#     return out
 
 
 def max_concurrent(meetings: list[tuple[int, int]]) -> int:
