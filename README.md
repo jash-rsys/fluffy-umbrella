@@ -8,6 +8,15 @@ This directory is a **sample GitHub-style project** for agent and workflow testi
 
 **No third-party dependencies** — standard library only.
 
+### RCA / Sentry-style incident (for E2E)
+
+`src/fluffy_umbrella/api/handlers.py` defines `create_connection` and a bad default port string that raises
+`ValueError: invalid port number: '9abc'` when the port is omitted — the same message as
+`scripts/agent_resources/root_cause_analysis/fixtures/sample_sentry_issue.json`.
+Point the RCA agent at this repo and that fixture (or a matching inbound webhook) to reproduce
+the error in code and land a small PR (e.g. set `_DEFAULT_SERVICE_PORT` to a valid value such as
+`"9443"` or read from a validated environment variable).
+
 ## Run
 
 Requires **Python 3.12+**. From this directory:
@@ -47,9 +56,13 @@ fluffy-umbrella/
 │   └── fluffy_umbrella/
 │       ├── __init__.py
 │       ├── __main__.py       # Module CLI: needs PYTHONPATH=src
-│       └── meeting_rooms.py  # Core algorithms
+│       ├── meeting_rooms.py  # Core algorithms
+│       └── api/
+│           ├── __init__.py
+│           └── handlers.py  # `create_connection` (RCA sample: bad default port)
 ├── tests/
-│   └── test_meeting_rooms.py # unittest
+│   ├── test_meeting_rooms.py # unittest
+│   └── test_handlers.py
 └── .github/
     └── workflows/
         └── ci.yml            # unittest on push/PR
