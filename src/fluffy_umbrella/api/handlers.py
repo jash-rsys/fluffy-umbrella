@@ -10,7 +10,7 @@ from __future__ import annotations
 
 # BUG: intended for local development with TLS offloader on 9443, but a bad edit left a
 # non-numeric value. Replaces with "9443" or "443" (or read from a validated env var).
-_DEFAULT_SERVICE_PORT = "9abc"
+_DEFAULT_SERVICE_PORT = "9443"
 
 
 def _parse_port_string(raw: str) -> int:

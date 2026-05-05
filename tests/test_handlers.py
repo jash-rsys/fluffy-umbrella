@@ -26,12 +26,8 @@ class TestHandlers(unittest.TestCase):
     def test_create_connection_omitted_port_uses_default_and_may_fail(
         self,
     ) -> None:
-        # Matches Sentry: ValueError: invalid port number: '9abc' until the default
-        # in handlers.py is a valid numeric string (e.g. "9443").
-        with self.assertRaisesRegex(
-            ValueError, r"invalid port number: '9abc'"
-        ):
-            create_connection("any-host")
+        # Default port is now "9443" (fixed from "9abc").
+        self.assertEqual(create_connection("any-host"), "any-host:9443")
 
 
 if __name__ == "__main__":
